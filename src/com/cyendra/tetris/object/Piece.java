@@ -4,56 +4,69 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 一个块对象，一个块包含多个方块
+ * @author cyendra
+ * */
 public class Piece {
 	
-	private List<Square> squares;
-	protected List<List<Square>> changes = new ArrayList<List<Square>>();
-	
-	protected Random random = new Random();
-	protected int currentIndex;
+	//小方块的边长
 	public final static int SQUARE_BORDER = 16;
 	
+	//该大方块所包含的小方块
+	private List<Square> squares = null;
+	
+	//该大方块四种方向变化
+	protected List<List<Square>> changes = new ArrayList<List<Square>>();
+	
+	//当前变化在changes集合中的索引
+	protected int currentIndex = 0;
+	
+	//获得当前大方块
 	public List<Square> getSquares() {
 		return squares;
 	}
-
+	
+	//设置当前大方块
 	public void setSquares(List<Square> squares) {
 		this.squares = squares;
 	}
 
+	//随机取得在预览区预设的大方块
 	public List<Square> getDefault() {
-		int defaultChange = random.nextInt(changes.size());
-		this.currentIndex = defaultChange;
-		return changes.get(defaultChange);
+		Random random = new Random();
+		this.currentIndex =  random.nextInt(changes.size());
+		return changes.get(this.currentIndex);
 	}
 
+	//翻转当前方块
 	public void change(){
 		if (this.changes.size() == 0) return;
-		this.currentIndex += 1;
-		if (this.currentIndex >= this.changes.size()) this.currentIndex = 0; 
+		this.currentIndex = (this.currentIndex + 1) % this.changes.size();
 		this.squares = this.changes.get(this.currentIndex);
 	}
 
+	//让Piece对象中的所有Square对象的x座标都加上参数x
 	public void setSquaresXLocation(int x) {
 		for (int i = 0; i < this.changes.size(); i++) {
-			List<Square> change = this.changes.get(i);
-			for (int j = 0; j < change.size(); j++) {
-				Square s = change.get(j);
+			for (int j = 0; j < this.changes.get(i).size(); j++) {
+				Square s = changes.get(i).get(j);
 				s.setBeginX(s.getBeginX() + x);
 			}
 		}
 	}
 	
+	//让Piece对象中的所有Square对象的y座标都加上参数y
 	public void setSquaresYLocation(int y) {
 		for (int i = 0; i < this.changes.size(); i++) {
-			List<Square> change = this.changes.get(i);
-			for (int j = 0; j < change.size(); j++) {
-				Square s = change.get(j);
+			for (int j = 0; j < this.changes.get(i).size(); j++) {
+				Square s = changes.get(i).get(j);;
 				s.setBeginY(s.getBeginY() + y);
 			}
 		}
 	}
 	
+	//得到当前变化中X座标最大的值
 	public int getMaxXLocation() {
 		int result = 0;
 		for (int i = 0; i < this.squares.size(); i++) {
@@ -63,6 +76,7 @@ public class Piece {
 		return result + SQUARE_BORDER;
 	}
 	
+	//得到当前变化中X座标的最小值
 	public int getMinXLocation() {
 		int result = Integer.MAX_VALUE;
 		for (int i = 0; i < this.squares.size(); i++) {
@@ -72,6 +86,7 @@ public class Piece {
 		return result;
 	}
 	
+	//得到当前变化中Y座标最大值
 	public int getMaxYLocation() {
 		int result = 0;
 		for (int i = 0; i < this.squares.size(); i++) {
@@ -81,6 +96,7 @@ public class Piece {
 		return result + SQUARE_BORDER;
 	}
 	
+	//得到当前变化中Y座标最小值
 	public int getMinYLocation() {
 		int result = Integer.MAX_VALUE;
 		for (int i = 0; i < this.squares.size(); i++) {

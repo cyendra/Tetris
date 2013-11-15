@@ -127,41 +127,38 @@ public class TetrisFrame extends JFrame {
 		this.pauseBox.add(this.pauseLabel);
 		
 		//开始
-				this.startLabel.setIcon(START_ICON);
-				this.startLabel.setPreferredSize(new Dimension(3, 25));
-				this.startBox.add(this.startLabel);
-				//下一个
-				this.nextTextBox.add(this.nextTextLabel);
-
-				this.toolPanel.add(Box.createVerticalStrut(10));
-				this.toolPanel.add(scoreTextBox);
-				this.toolPanel.add(Box.createVerticalStrut(10));
-				this.toolPanel.add(scoreBox);
-				this.toolPanel.add(Box.createVerticalStrut(10));
-				this.toolPanel.add(levelTextBox);
-				this.toolPanel.add(Box.createVerticalStrut(10));
-				this.toolPanel.add(levelBox);
-				this.toolPanel.add(Box.createVerticalStrut(15));
-				this.toolPanel.add(this.resumeBox);
-				this.toolPanel.add(Box.createVerticalStrut(15));
-				this.toolPanel.add(this.pauseBox);
-				this.toolPanel.add(Box.createVerticalStrut(15));
-				this.toolPanel.add(this.startBox);
-				this.toolPanel.add(Box.createVerticalStrut(30));
-				this.toolPanel.add(this.nextTextBox);
-
-				this.blankBox.add(Box.createHorizontalStrut(99));
-				this.toolPanel.add(blankBox);
-				
-				this.add(this.gamePanel, BorderLayout.CENTER);
-				this.add(this.toolPanel, BorderLayout.EAST);
-				this.setPreferredSize(new Dimension(349, 416));
-				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				this.setLocation(350, 200);
-				this.setResizable(false);
-				this.setTitle("俄罗斯方块");
-				this.pack();
-				initListeners();
+		this.startLabel.setIcon(START_ICON);
+		this.startLabel.setPreferredSize(new Dimension(3, 25));
+		this.startBox.add(this.startLabel);
+		//下一个
+		this.nextTextBox.add(this.nextTextLabel);
+		this.toolPanel.add(Box.createVerticalStrut(10));
+		this.toolPanel.add(scoreTextBox);
+		this.toolPanel.add(Box.createVerticalStrut(10));
+		this.toolPanel.add(scoreBox);
+		this.toolPanel.add(Box.createVerticalStrut(10));
+		this.toolPanel.add(levelTextBox);
+		this.toolPanel.add(Box.createVerticalStrut(10));
+		this.toolPanel.add(levelBox);
+		this.toolPanel.add(Box.createVerticalStrut(15));
+		this.toolPanel.add(this.resumeBox);
+		this.toolPanel.add(Box.createVerticalStrut(15));
+		this.toolPanel.add(this.pauseBox);
+		this.toolPanel.add(Box.createVerticalStrut(15));
+		this.toolPanel.add(this.startBox);
+		this.toolPanel.add(Box.createVerticalStrut(30));
+		this.toolPanel.add(this.nextTextBox);
+		this.blankBox.add(Box.createHorizontalStrut(99));
+		this.toolPanel.add(blankBox);				
+		this.add(this.gamePanel, BorderLayout.CENTER);
+		this.add(this.toolPanel, BorderLayout.EAST);
+		this.setPreferredSize(new Dimension(349, 416));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocation(350, 200);
+		this.setResizable(false);
+		this.setTitle("俄罗斯方块");
+		this.pack();
+		initListeners();
 	}
 
 	private void initListeners() {

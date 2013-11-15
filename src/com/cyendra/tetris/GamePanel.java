@@ -19,8 +19,7 @@ public class GamePanel extends JPanel {
 	}
 
 	public void paint(Graphics g) {
-		g.drawImage(this.background, 0, 0, this.getWidth(), 
-				this.getHeight() , null);
+		g.drawImage(this.background, 0, 0, this.getWidth(), this.getHeight(), null);
 		Piece currentPiece = this.Frame.getCurrentPiece();
 		ImageUtil.paintPiece(g, currentPiece);
 		Square[][] squares = this.Frame.getSquares();
