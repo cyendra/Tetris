@@ -12,17 +12,21 @@ import com.cyendra.tetris.util.ImageUtil;
 public class GamePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
 	private Image background = ImageUtil.getImage("images/background.jpg");
-	private TetrisFrame Frame = null;
-	public GamePanel(TetrisFrame Frame) {
-		this.Frame = Frame;
+	
+	private TetrisFrame frame = null;
+	public GamePanel(TetrisFrame frame) {
+		this.frame = frame;
 	}
 
 	public void paint(Graphics g) {
+		//System.out.println("back "+this.getWidth()+" "+this.getHeight());
+		//240 380
 		g.drawImage(this.background, 0, 0, this.getWidth(), this.getHeight(), null);
-		Piece currentPiece = this.Frame.getCurrentPiece();
+		Piece currentPiece = this.frame.getCurrentPiece();
 		ImageUtil.paintPiece(g, currentPiece);
-		Square[][] squares = this.Frame.getSquares();
+		Square[][] squares = this.frame.getSquares();
 		if (squares == null) return;
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {

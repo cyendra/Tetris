@@ -364,8 +364,10 @@ public class TetrisFrame extends JFrame {
 		int xSize = this.gamePanel.getWidth()/Piece.SQUARE_BORDER;
 		//得到高可以存放的方块个数
 		int ySize = this.gamePanel.getHeight()/Piece.SQUARE_BORDER;
+		//size=15 23, Height=380, SQUARE=16
+		//System.out.println("size = "+xSize+" "+ySize+" Height="+this.gamePanel.getHeight()+" SQUARE"+Piece.SQUARE_BORDER);
 		//构造界面的二维数组
-		this.squares = new Square[xSize][ySize];
+		this.squares = new Square[xSize][ySize+1];
 		for(int i = 0; i < this.squares.length; i++) {
 			for (int j = 0; j < this.squares[i].length; j++) {
 				this.squares[i][j] = new Square(Piece.SQUARE_BORDER * i, 

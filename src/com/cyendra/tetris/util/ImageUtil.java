@@ -10,23 +10,31 @@ import javax.imageio.ImageIO;
 import com.cyendra.tetris.exception.GameException;
 import com.cyendra.tetris.object.Piece;
 import com.cyendra.tetris.object.Square;
-
+/**
+ * 
+ * 
+ * */
 public class ImageUtil {
-
+	
+	/**
+	 * 使用ImageIO读取图片
+	 * @param imagePath 图片地址
+	 * @return imagePath地址下的图片
+	 * @exception IOException 读取图片发生异常
+	 * */
 	public static BufferedImage getImage(String imagePath) {
-    	try {
-    		//使用ImageIO读取图片
-    		return ImageIO.read(new File(imagePath));
-    	} catch (IOException e) {
-    		//读取图片发生异常，抛出GameException
-    		throw new GameException("read image error");
+    try {
+   		return ImageIO.read(new File(imagePath));
+   	} 
+    catch (IOException e) {
+   		throw new GameException("Image读取错误");
     	}
 	}
 	
 	/**
 	 * 在界面上画一个Piece对象
-	 * @param g
-	 * @param piece
+	 * @param g Graphics
+	 * @param piece Piece
 	 */
 	public static void paintPiece(Graphics g, Piece piece) {
 		if (piece == null) return;

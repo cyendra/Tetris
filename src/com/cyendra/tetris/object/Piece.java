@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * 一个块对象，一个块包含多个方块
+/** 
+ * 大方块类
+ * 包含多个基本方块
  * @author cyendra
  * */
 public class Piece {
