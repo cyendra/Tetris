@@ -24,9 +24,9 @@ public class GamePanel extends JPanel {
 		//System.out.println("back "+this.getWidth()+" "+this.getHeight());
 		//240 380
 		g.drawImage(this.background, 0, 0, this.getWidth(), this.getHeight(), null);
-		Piece currentPiece = this.frame.getCurrentPiece();
+		Piece currentPiece = this.frame.getGameManager().getCurrentPiece();
 		ImageUtil.paintPiece(g, currentPiece);
-		Square[][] squares = this.frame.getSquares();
+		Square[][] squares = this.frame.getGameManager().getSquares();
 		if (squares == null) return;
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
