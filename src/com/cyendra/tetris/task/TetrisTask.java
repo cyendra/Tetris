@@ -28,5 +28,4 @@ public class TetrisTask extends TimerTask {
 		currentPiece.setSquaresYLocation(Piece.SQUARE_BORDER);
 		frame.getGamePanel().repaint();
 	}
-	
 }

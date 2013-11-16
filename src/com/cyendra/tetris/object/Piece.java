@@ -46,6 +46,16 @@ public class Piece {
 		this.currentIndex = (this.currentIndex + 1) % this.changes.size();
 		this.squares = this.changes.get(this.currentIndex);
 	}
+	
+	/**
+	 * 获取下一个翻转
+	 * */
+	public List<Square> getNextSquares() {
+		if (this.changes.size() == 0) return null;
+		int Index = (this.currentIndex + 1) % this.changes.size();
+		List<Square> sq = this.changes.get(Index);
+		return sq;
+	}
 
 	//让Piece对象中的所有Square对象的x座标都加上参数x
 	public void setSquaresXLocation(int x) {
@@ -68,6 +78,7 @@ public class Piece {
 	}
 	
 	//得到当前变化中X座标最大的值
+	
 	public int getMaxXLocation() {
 		int result = 0;
 		for (int i = 0; i < this.squares.size(); i++) {

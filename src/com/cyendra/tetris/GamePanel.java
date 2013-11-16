@@ -22,7 +22,7 @@ public class GamePanel extends JPanel {
 
 	public void paint(Graphics g) {
 		//System.out.println("back "+this.getWidth()+" "+this.getHeight());
-		//240 380
+		//240 400
 		g.drawImage(this.background, 0, 0, this.getWidth(), this.getHeight(), null);
 		Piece currentPiece = this.frame.getGameManager().getCurrentPiece();
 		ImageUtil.paintPiece(g, currentPiece);

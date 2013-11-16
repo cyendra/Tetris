@@ -162,7 +162,8 @@ public class TetrisFrame extends JFrame {
 		this.add(this.toolPanel, BorderLayout.EAST);
 		
 		//…Ë÷√¥∞ø⁄ Ù–‘
-		this.setPreferredSize(new Dimension(349, 416));
+		
+		this.setPreferredSize(new Dimension(349, 436));//Dimension(349, 416));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocation(350, 200);
 		this.setResizable(false);
