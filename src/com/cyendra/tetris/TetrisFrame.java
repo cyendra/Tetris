@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,10 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import com.cyendra.tetris.object.Piece;
+import com.cyendra.tetris.task.TetrisTask;
 import com.cyendra.tetris.util.ImageUtil;
 /**
- * 俄罗斯方块的窗口类
+ * 俄罗斯方块的窗体类
  * @author cyendra
  * */
 public class TetrisFrame extends JFrame {
@@ -43,8 +42,8 @@ public class TetrisFrame extends JFrame {
 	//游戏的画板
 	private GamePanel gamePanel;
 
-	//游戏循环
-	TetrisTask tetrisTask;
+	//定时器
+	private TetrisTask tetrisTask;
 	private Timer timer;
 	
 	//分数
@@ -172,6 +171,21 @@ public class TetrisFrame extends JFrame {
 		initListeners();
 	}
 	
+	//启动定时器
+	private void initTimer() {
+		if (timer != null) timer.cancel();
+		timer = new Timer();
+		tetrisTask = new TetrisTask(getTetrisFrame());
+		int time = 1000 / gameManager.getCurrentLevel();
+		timer.schedule(tetrisTask, 0, time);
+	}
+	
+	//关闭定时器
+	private void closeTimer() {
+		if (timer != null) timer.cancel();
+		timer = null;
+	}
+	
 	//初始化监听器
 	private void initListeners() {
 		this.resumeLabel.addMouseListener(new MouseAdapter() {
@@ -187,10 +201,7 @@ public class TetrisFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (!gameManager.getPauseFlag()) return;
 				gameManager.resume();
-				timer = new Timer();
-				tetrisTask = new TetrisTask(getTetrisFrame());
-				int time = 1000 / gameManager.getCurrentLevel();
-				timer.schedule(tetrisTask, 0, time);
+				initTimer();
 			}
 		});
 		this.pauseLabel.addMouseListener(new MouseAdapter() {
@@ -205,8 +216,7 @@ public class TetrisFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				gameManager.pause();
-				if (timer != null) timer.cancel();
-				timer = null;
+				closeTimer();
 			}
 		});
 		this.startLabel.addMouseListener(new MouseAdapter() {
@@ -221,13 +231,8 @@ public class TetrisFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				gameManager.start();				
-				//初始化定时器
-				if (timer != null) timer.cancel();
-				timer = new Timer();
-				tetrisTask = new TetrisTask(getTetrisFrame());
-				int time = 1000 / gameManager.getCurrentLevel();
-				timer.schedule(tetrisTask, 0, time);
-				scoreLabel.setText(String.valueOf(gameManager.getScore()));
+				initTimer();
+				setScore(gameManager.getScore());
 			}
 		});
 		//添加键盘监听器
@@ -245,58 +250,56 @@ public class TetrisFrame extends JFrame {
 			}
 		});
 	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		if (gameManager.getNextPiece() == null) return;
 		ImageUtil.paintPiece(g, gameManager.getNextPiece());
 	}
-
+	
+	/**
+	 * 获取游戏管理器的实例
+	 * @retrun gameManager
+	 * */
 	public GameManager getGameManager() {
 		return this.gameManager;
 	}
 	
+	/**
+	 * 获取窗体的实例
+	 * @retrun TetrisFrame
+	 * */
  	public TetrisFrame getTetrisFrame() {
  		return this;
  	}
  	
+	/**
+	 * 清空画布与定时器
+	 * */
  	public void clearGame() {
 		repaint();
 		timer.cancel();
  	}
  	
+	/**
+	 * 设置画布上的分数
+	 * @param score 游戏分数
+	 * */
  	public void setScore(int score) {
  		this.scoreLabel.setText(String.valueOf(score));
  	}
+ 	
+	/**
+	 * 设置画布上的等级
+	 * @param level 游戏等级
+	 * */
  	public void setLevel(int level) {
  		this.levelLabel.setText(String.valueOf(level));
-		//重新设置定时器
-		this.timer.cancel();
-		this.timer = new Timer();
-		this.tetrisTask = new TetrisTask(this);
-		int time = 1000 / gameManager.getCurrentLevel();
-		timer.schedule(this.tetrisTask, 0, time);
+ 		initTimer();
  	}
 
 }
 
-class TetrisTask extends TimerTask {
-	//主界面对象
-	private TetrisFrame frame;
-	public TetrisTask(TetrisFrame frame) {
-		this.frame = frame;
-	}
-	@Override
-	public void run() {
-		//得到当前正在运动的大方块
-		Piece currentPiece = this.frame.getGameManager().getCurrentPiece();
-		//判断快整下降后是否有障碍或者到底部
-		if (this.frame.getGameManager().isBlock() || this.frame.getGameManager().isButtom()) {
-			this.frame.getGameManager().showNext();
-			return;
-		}
-		currentPiece.setSquaresYLocation(Piece.SQUARE_BORDER);
-		this.frame.getGamePanel().repaint();
-	}
-	
-}
+
+
