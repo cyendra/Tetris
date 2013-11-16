@@ -14,6 +14,9 @@ public class Piece {
 	//小方块的边长
 	public final static int SQUARE_BORDER = 16;
 	
+	//小方块颜色编号
+	private int key;
+	
 	//该大方块所包含的小方块
 	private List<Square> squares = null;
 	
@@ -57,6 +60,13 @@ public class Piece {
 		return sq;
 	}
 
+	/**
+	 * 获取方块颜色
+	 * */
+	public int getColor() {
+		return key;
+	}
+	
 	//让Piece对象中的所有Square对象的x座标都加上参数x
 	public void setSquaresXLocation(int x) {
 		for (int i = 0; i < this.changes.size(); i++) {
@@ -117,5 +127,10 @@ public class Piece {
 		}
 		return result + SQUARE_BORDER;
 	}
+
+	public void setColor(int rand) {
+		this.key = rand;
+	}
+
 }
 

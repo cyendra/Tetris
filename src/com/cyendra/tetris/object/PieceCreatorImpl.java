@@ -66,8 +66,10 @@ public class PieceCreatorImpl implements PieceCreator {
 	
 	@Override
 	public Piece createPiece(int x, int y) {
-		Image image = getImage(random.nextInt(COLOR_SIZE));
+		int rand = random.nextInt(COLOR_SIZE);
+		Image image = getImage(rand);
 		Piece piece = initPiece(image);
+		piece.setColor(rand);
 		piece.setSquaresXLocation(x);
 		piece.setSquaresYLocation(y);
 		return piece;

@@ -256,6 +256,7 @@ public class TetrisFrame extends JFrame {
 	public void paint(Graphics g) {
 		super.paint(g);
 		if (gameManager.getNextPiece() == null) return;
+		//System.out.println(gameManager.getNextPiece().getColor());
 		ImageUtil.paintPiece(g, gameManager.getNextPiece());
 	}
 	

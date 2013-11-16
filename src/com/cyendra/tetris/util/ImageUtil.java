@@ -40,6 +40,7 @@ public class ImageUtil {
 		if (piece == null) return;
 		for (int i = 0; i < piece.getSquares().size(); i++) {
 			Square s = piece.getSquares().get(i);
+			//System.out.println(s.getImage().toString());
 			g.drawImage(s.getImage(), s.getBeginX(), s.getBeginY(), null);
 		}
 	}
